@@ -25,9 +25,9 @@ export const mockCandidates: Candidate[] = [
     skills: ["React", "TypeScript", "Next.js", "GraphQL", "Node.js"],
     experience: 6,
     location: "San Francisco, CA",
-    matchScore: 95,
-    interestScore: 88,
-    finalScore: 92,
+    matchScore: 97,
+    interestScore: 91,
+    finalScore: 94,
     whyThisCandidate: "Strong React and TypeScript expertise with 6 years of experience. Previously led frontend teams at two startups and has open-source contributions to popular React libraries."
   },
   {
@@ -36,9 +36,9 @@ export const mockCandidates: Candidate[] = [
     skills: ["React", "JavaScript", "Vue.js", "CSS", "Webpack"],
     experience: 4,
     location: "Austin, TX",
-    matchScore: 82,
-    interestScore: 92,
-    finalScore: 86,
+    matchScore: 78,
+    interestScore: 94,
+    finalScore: 85,
     whyThisCandidate: "Highly motivated developer actively seeking new opportunities. Recent experience with modern frontend architecture and performance optimization."
   },
   {
@@ -47,9 +47,9 @@ export const mockCandidates: Candidate[] = [
     skills: ["React", "TypeScript", "Redux", "Testing", "Figma"],
     experience: 5,
     location: "New York, NY",
-    matchScore: 88,
-    interestScore: 75,
-    finalScore: 82,
+    matchScore: 85,
+    interestScore: 62,
+    finalScore: 74,
     whyThisCandidate: "Excellent technical skills with strong design sensibility. Has worked on large-scale applications and has experience bridging design and development teams."
   },
   {
@@ -58,9 +58,9 @@ export const mockCandidates: Candidate[] = [
     skills: ["Angular", "TypeScript", "RxJS", "Node.js"],
     experience: 7,
     location: "Seattle, WA",
-    matchScore: 68,
-    interestScore: 85,
-    finalScore: 75,
+    matchScore: 58,
+    interestScore: 79,
+    finalScore: 67,
     whyThisCandidate: "Experienced developer looking to transition from Angular to React. Strong TypeScript foundation and enthusiasm for learning new frameworks."
   },
   {
@@ -69,9 +69,9 @@ export const mockCandidates: Candidate[] = [
     skills: ["React", "Python", "Django", "PostgreSQL"],
     experience: 3,
     location: "Denver, CO",
-    matchScore: 72,
-    interestScore: 60,
-    finalScore: 67,
+    matchScore: 64,
+    interestScore: 38,
+    finalScore: 52,
     whyThisCandidate: "Full-stack developer with growing frontend expertise. Good problem-solving skills but may need mentorship for advanced React patterns."
   },
   {
@@ -80,9 +80,9 @@ export const mockCandidates: Candidate[] = [
     skills: ["HTML", "CSS", "jQuery", "Bootstrap"],
     experience: 2,
     location: "Chicago, IL",
-    matchScore: 45,
-    interestScore: 95,
-    finalScore: 65,
+    matchScore: 32,
+    interestScore: 96,
+    finalScore: 58,
     whyThisCandidate: "Highly enthusiastic junior developer eager to learn modern frameworks. Shows potential but lacks direct experience with required technologies."
   }
 ]
