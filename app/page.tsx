@@ -112,12 +112,12 @@ export default function RecruiterDashboard() {
 
               {/* Empty State */}
               {candidates.length === 0 && !isAnalyzing && (
-                <div className="rounded-xl border-2 border-dashed border-muted-foreground/20 p-12 text-center">
+                <div className="rounded-xl border-2 border-dashed border-muted-foreground/25 p-12 text-center bg-card/50">
                   <div className="mx-auto h-16 w-16 rounded-full bg-primary/10 flex items-center justify-center mb-4">
                     <Users className="h-8 w-8 text-primary" />
                   </div>
-                  <h3 className="text-lg font-semibold mb-2">No candidates yet</h3>
-                  <p className="text-muted-foreground max-w-sm mx-auto">
+                  <h3 className="text-lg font-semibold mb-2 text-foreground">No candidates yet</h3>
+                  <p className="text-muted-foreground max-w-sm mx-auto text-balance">
                     Paste a job description above and click &quot;Analyze JD&quot; to find matching candidates powered by AI.
                   </p>
                 </div>

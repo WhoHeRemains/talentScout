@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Textarea } from "@/components/ui/textarea"
+import { Spinner } from "@/components/ui/spinner"
 import { Sparkles, FileText } from "lucide-react"
 
 interface JobInputProps {
@@ -44,7 +45,11 @@ We are looking for a Senior Frontend Developer with 5+ years of experience in Re
           disabled={!jobDescription.trim() || isAnalyzing}
           className="w-full sm:w-auto"
         >
-          <Sparkles className="mr-2 h-4 w-4" />
+          {isAnalyzing ? (
+            <Spinner className="mr-2 h-4 w-4" />
+          ) : (
+            <Sparkles className="mr-2 h-4 w-4" />
+          )}
           {isAnalyzing ? "Analyzing..." : "Analyze JD"}
         </Button>
       </CardContent>

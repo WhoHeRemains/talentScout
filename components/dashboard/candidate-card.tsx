@@ -108,11 +108,10 @@ export function CandidateCard({ candidate, onEngage }: CandidateCardProps) {
         {/* Engage Button */}
         <Button 
           onClick={() => onEngage(candidate)} 
-          className="w-full"
-          variant="default"
+          className="w-full gap-2"
         >
-          <MessageCircle className="mr-2 h-4 w-4" />
-          Engage
+          <MessageCircle className="h-4 w-4" />
+          Engage Candidate
         </Button>
       </CardContent>
     </Card>
