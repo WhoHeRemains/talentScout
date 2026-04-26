@@ -4,29 +4,36 @@ import { useState, useCallback } from "react"
 import { Sidebar } from "@/components/dashboard/sidebar"
 import { MobileSidebar } from "@/components/dashboard/mobile-sidebar"
 import { JobInput } from "@/components/dashboard/job-input"
+import { PipelineLogs } from "@/components/dashboard/pipeline-logs"
+import { ExtractedSkills } from "@/components/dashboard/extracted-skills"
+import { TopCandidateCard } from "@/components/dashboard/top-candidate-card"
 import { CandidateCard } from "@/components/dashboard/candidate-card"
 import { ChatModal } from "@/components/dashboard/chat-modal"
 import { RankingTable } from "@/components/dashboard/ranking-table"
 import { AnalyticsView } from "@/components/dashboard/analytics-view"
-import { mockCandidates, mockChatMessages, type Candidate } from "@/lib/mock-data"
+import { mockCandidates, mockChatMessages, extractedSkills, type Candidate } from "@/lib/mock-data"
 import { Sparkles, Users } from "lucide-react"
 
 export default function RecruiterDashboard() {
   const [activeTab, setActiveTab] = useState("dashboard")
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [jobDescription, setJobDescription] = useState("")
-  const [isAnalyzing, setIsAnalyzing] = useState(false)
+  const [isRunningPipeline, setIsRunningPipeline] = useState(false)
+  const [pipelineComplete, setPipelineComplete] = useState(false)
   const [candidates, setCandidates] = useState<Candidate[]>([])
   const [selectedCandidate, setSelectedCandidate] = useState<Candidate | null>(null)
   const [isChatOpen, setIsChatOpen] = useState(false)
 
-  const handleAnalyze = useCallback(() => {
-    setIsAnalyzing(true)
-    // Simulate AI analysis
-    setTimeout(() => {
-      setCandidates(mockCandidates)
-      setIsAnalyzing(false)
-    }, 1500)
+  const handleRunAgent = useCallback(() => {
+    setIsRunningPipeline(true)
+    setPipelineComplete(false)
+    setCandidates([])
+  }, [])
+
+  const handlePipelineComplete = useCallback(() => {
+    setIsRunningPipeline(false)
+    setPipelineComplete(true)
+    setCandidates(mockCandidates)
   }, [])
 
   const handleEngage = useCallback((candidate: Candidate) => {
@@ -38,6 +45,10 @@ export default function RecruiterDashboard() {
     setIsChatOpen(false)
     setSelectedCandidate(null)
   }, [])
+
+  const topCandidate = candidates.length > 0 
+    ? [...candidates].sort((a, b) => b.finalScore - a.finalScore)[0] 
+    : null
 
   return (
     <div className="min-h-screen bg-background">
@@ -64,9 +75,9 @@ export default function RecruiterDashboard() {
             </h1>
           </div>
           <div className="flex items-center gap-2">
-            <div className="hidden sm:flex items-center gap-2 rounded-full bg-success/10 px-3 py-1.5">
-              <Sparkles className="h-4 w-4 text-success" />
-              <span className="text-sm font-medium text-success">AI Active</span>
+            <div className="hidden sm:flex items-center gap-2 rounded-full bg-emerald-500/10 px-3 py-1.5">
+              <Sparkles className="h-4 w-4 text-emerald-600" />
+              <span className="text-sm font-medium text-emerald-600">AI Active</span>
             </div>
           </div>
         </header>
@@ -75,52 +86,54 @@ export default function RecruiterDashboard() {
         <main className="p-4 sm:p-6 lg:p-8">
           {activeTab === "dashboard" && (
             <div className="space-y-8">
-              {/* Job Input */}
-              <JobInput
-                jobDescription={jobDescription}
-                onJobDescriptionChange={setJobDescription}
-                onAnalyze={handleAnalyze}
-                isAnalyzing={isAnalyzing}
-              />
+              {/* 2-Column Layout */}
+              <div className="grid gap-6 lg:grid-cols-2">
+                {/* Left Column */}
+                <div className="space-y-6">
+                  {/* Job Description Card */}
+                  <JobInput
+                    jobDescription={jobDescription}
+                    onJobDescriptionChange={setJobDescription}
+                    onAnalyze={handleRunAgent}
+                    isAnalyzing={isRunningPipeline}
+                  />
 
-              {/* Candidates Section */}
-              {candidates.length > 0 && (
-                <>
-                  <div>
-                    <div className="flex items-center gap-2 mb-4">
-                      <Users className="h-5 w-5 text-primary" />
-                      <h2 className="text-xl font-semibold">Matched Candidates</h2>
-                      <span className="rounded-full bg-primary/10 px-2.5 py-0.5 text-sm font-medium text-primary">
-                        {candidates.length}
-                      </span>
-                    </div>
-                    <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-                      {candidates.map((candidate) => (
-                        <CandidateCard
-                          key={candidate.id}
-                          candidate={candidate}
-                          onEngage={handleEngage}
-                        />
-                      ))}
-                    </div>
-                  </div>
+                  {/* Extracted Skills */}
+                  <ExtractedSkills 
+                    skills={extractedSkills} 
+                    isVisible={pipelineComplete || isRunningPipeline} 
+                  />
 
-                  {/* Ranking Table */}
-                  <RankingTable candidates={candidates} />
-                </>
-              )}
-
-              {/* Empty State */}
-              {candidates.length === 0 && !isAnalyzing && (
-                <div className="rounded-xl border-2 border-dashed border-muted-foreground/25 p-12 text-center bg-card/50">
-                  <div className="mx-auto h-16 w-16 rounded-full bg-primary/10 flex items-center justify-center mb-4">
-                    <Users className="h-8 w-8 text-primary" />
-                  </div>
-                  <h3 className="text-lg font-semibold mb-2 text-foreground">No candidates yet</h3>
-                  <p className="text-muted-foreground max-w-sm mx-auto text-balance">
-                    Paste a job description above and click &quot;Analyze JD&quot; to find matching candidates powered by AI.
-                  </p>
+                  {/* Pipeline Logs */}
+                  {(isRunningPipeline || pipelineComplete) && (
+                    <PipelineLogs 
+                      isRunning={isRunningPipeline} 
+                      onComplete={handlePipelineComplete} 
+                    />
+                  )}
                 </div>
+
+                {/* Right Column - Top Candidate */}
+                <div>
+                  {topCandidate ? (
+                    <TopCandidateCard candidate={topCandidate} />
+                  ) : (
+                    <div className="rounded-xl border-2 border-dashed border-muted-foreground/25 p-12 text-center bg-card/50 h-full flex flex-col items-center justify-center min-h-[400px]">
+                      <div className="mx-auto h-16 w-16 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+                        <Users className="h-8 w-8 text-primary" />
+                      </div>
+                      <h3 className="text-lg font-semibold mb-2 text-foreground">Top Candidate Preview</h3>
+                      <p className="text-muted-foreground max-w-sm mx-auto text-balance">
+                        Run the talent scouting agent to see your best-matched candidate here with detailed scoring breakdown.
+                      </p>
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* All Candidates Table */}
+              {candidates.length > 0 && (
+                <RankingTable candidates={candidates} />
               )}
             </div>
           )}

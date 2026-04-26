@@ -50,7 +50,7 @@ We are looking for a Senior Frontend Developer with 5+ years of experience in Re
           ) : (
             <Sparkles className="mr-2 h-4 w-4" />
           )}
-          {isAnalyzing ? "Analyzing..." : "Analyze JD"}
+          {isAnalyzing ? "Running Agent..." : "Run Talent Scouting Agent"}
         </Button>
       </CardContent>
     </Card>

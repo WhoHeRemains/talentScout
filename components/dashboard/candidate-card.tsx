@@ -13,15 +13,15 @@ interface CandidateCardProps {
 }
 
 function getScoreColor(score: number) {
-  if (score >= 80) return "text-success"
-  if (score >= 60) return "text-warning"
-  return "text-destructive"
+  if (score >= 80) return "text-emerald-600"
+  if (score >= 60) return "text-amber-600"
+  return "text-red-600"
 }
 
 function getProgressColor(score: number) {
-  if (score >= 80) return "[&>div]:bg-success"
-  if (score >= 60) return "[&>div]:bg-warning"
-  return "[&>div]:bg-destructive"
+  if (score >= 80) return "[&>div]:bg-emerald-500"
+  if (score >= 60) return "[&>div]:bg-amber-500"
+  return "[&>div]:bg-red-500"
 }
 
 export function CandidateCard({ candidate, onEngage }: CandidateCardProps) {
@@ -37,7 +37,8 @@ export function CandidateCard({ candidate, onEngage }: CandidateCardProps) {
             </div>
             <div>
               <h3 className="font-semibold text-foreground">{candidate.name}</h3>
-              <div className="flex items-center gap-3 text-sm text-muted-foreground mt-0.5">
+              <p className="text-sm text-muted-foreground">{candidate.role}</p>
+              <div className="flex items-center gap-3 text-xs text-muted-foreground mt-1">
                 <span className="flex items-center gap-1">
                   <Briefcase className="h-3.5 w-3.5" />
                   {candidate.experience} years
