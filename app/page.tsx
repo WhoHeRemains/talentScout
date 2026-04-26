@@ -15,6 +15,7 @@ import { AnalyticsPanel } from "@/components/dashboard/analytics-panel"
 import { AnalyticsView } from "@/components/dashboard/analytics-view"
 import { mockCandidates, mockChatMessages, extractedSkills, type Candidate } from "@/lib/mock-data"
 import { Sparkles, Users } from "lucide-react"
+import { ThemeToggle } from "@/components/dashboard/theme-toggle"
 
 export default function RecruiterDashboard() {
   const [activeTab, setActiveTab] = useState("dashboard")
@@ -168,6 +169,7 @@ export default function RecruiterDashboard() {
               <Sparkles className="h-4 w-4 text-emerald-600" />
               <span className="text-sm font-medium text-emerald-600">AI Active</span>
             </div>
+            <ThemeToggle />
           </div>
         </header>
 
